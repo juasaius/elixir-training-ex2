@@ -1,35 +1,35 @@
 defmodule Countdown.ArenaChannelTest do
   use Countdown.ChannelCase, async: true
 
-  # alias Countdown.{ArenaChannel, UserSocket, Counter}
-  #
-  # setup do
-  #   # Ensure counter starts with 0
-  #   Counter.reset
-  #   on_exit fn -> Counter.reset end
-  #
-  #   # Get socket
-  #   {:ok, socket} = connect(UserSocket, %{})
-  #   # And join main channel
-  #   {:ok, reply, socket} = subscribe_and_join(socket, ArenaChannel, "arenas:lobby")
-  #
-  #   {:ok, socket: socket, join_reply: reply}
-  # end
-  #
-  # test "should reply counter, 0 the first time, when joining", %{join_reply: reply} do
-  #   assert %{counter: 0} = reply
-  # end
-  #
-  # test "should reply updated counter when joining" do
-  #   # Increment counter
-  #   Counter.count
-  #   # Create new socket and join to the channel
-  #   {:ok, socket} = connect(UserSocket, %{})
-  #   {:ok, reply, _socket} = subscribe_and_join(socket, "arenas:lobby")
-  #   # So it should reply updated counter
-  #   assert %{counter: 1} = reply
-  # end
-  #
+  alias Countdown.{ArenaChannel, UserSocket, Counter}
+
+  setup do
+    # Ensure counter starts with 0
+    Counter.reset
+    on_exit fn -> Counter.reset end
+
+    # Get socket
+    {:ok, socket} = connect(UserSocket, %{})
+    # And join main channel
+    {:ok, reply, socket} = subscribe_and_join(socket, ArenaChannel, "arenas:lobby")
+
+    {:ok, socket: socket, join_reply: reply}
+  end
+
+  test "should reply counter, 0 the first time, when joining", %{join_reply: reply} do
+    assert %{counter: 0} = reply
+  end
+
+  test "should reply updated counter when joining" do
+    # Increment counter
+    Counter.count
+    # Create new socket and join to the channel
+    {:ok, socket} = connect(UserSocket, %{})
+    {:ok, reply, _socket} = subscribe_and_join(socket, "arenas:lobby")
+    # So it should reply updated counter
+    assert %{counter: 1} = reply
+  end
+
   # test "count broadcasts updated counter to arenas:lobby", %{socket: socket} do
   #   # At this moment counter value should be 0
   #   assert 0 = Counter.value
